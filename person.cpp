@@ -6,7 +6,7 @@ using std::cout;
 using std::endl;
 
 Person::Person(char *name, Person* father, Person* mother){
-    this->name = new char[strlen(name)];
+    this->name = new char[strlen(name)+ 1];
     strcpy(this->name, name);
     this->father = father;
     this->mother = mother;
@@ -53,7 +53,7 @@ void Person::printLineage(char dir, int level){
             father->printLineage(dir, level + 1);
         }
     }
- //  delete temp;
+  delete[] temp;
    
 }
 
@@ -69,7 +69,7 @@ char* Person::compute_relation(int level){
     for(int i = 2; i <= level; i++){
         char *temp2 = new char[strlen("great ") + strlen(temp) + 1];
         strcat(strcpy(temp2, "great "), temp);
-       // delete temp;
+        delete[] temp;
         temp = temp2;
        // delete temp2;
     }
@@ -85,5 +85,7 @@ void expand(Person ***t, int *MAX){
   memcpy(temp, *t, *MAX * sizeof(**t));
   *MAX *= 2;
   *t = temp;
-  // delete temp;
+  //delete temp;
+  delete t;
 }
+
