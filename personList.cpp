@@ -12,7 +12,11 @@ PersonList::PersonList(){
 }
 
 PersonList::~PersonList(){
-    delete [] theList;
+    for(int i = 0; i < numPeople; i++)
+{
+delete theList[i];
+}
+delete[] theList;
 }
 
 void PersonList::addPerson(char* child_name, char* father_name, char* mother_name){
@@ -35,16 +39,21 @@ void PersonList::addPerson(char* child_name, char* father_name, char* mother_nam
       // father_name is not in the theList so create a new person
       father = new Person(father_name, 0, 0);
       insertIntoList(father);
+     
+	
     }
     if(mother == 0){
       // mother_name is not in the theList so create a new person
       mother = new Person(mother_name, 0, 0);
       insertIntoList(mother);
+     
     }
     Person *newChild = new Person(child_name, father, mother);
     insertIntoList(newChild);
     father->addChild(newChild);
     mother->addChild(newChild);
+    
+
 }
 
 void PersonList::insertIntoList(Person *newPerson){
